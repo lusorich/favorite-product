@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 	
 	let isLogin = true;
@@ -51,10 +52,11 @@
 			if (response.ok) {
 				success = data.message;
 				if (isLogin) {
-					// Redirect or handle successful login
+					// Store username in localStorage and redirect to dashboard
+					localStorage.setItem('username', username);
 					setTimeout(() => {
-						alert('Login successful!');
-					}, 1000);
+						goto('/dashboard');
+					}, 500);
 				} else {
 					// Switch to login mode after successful registration
 					setTimeout(() => {
