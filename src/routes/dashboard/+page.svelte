@@ -133,18 +133,49 @@
 	}
 
 	async function handleToggleFavorite(productId: string) {
-		try {
-			const response = await fetch('/api/products/favorite', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ username, productId })
-			});
+		// Optimistic update - update UI immediately
+		const productIndex = products.findIndex(p => p.id === productId);
+		if (productIndex !== -1) {
+			const previousFavoriteState = products[productIndex].isFavorite;
+			
+			// Update the product optimistically
+			products[productIndex] = {
+				...products[productIndex],
+				isFavorite: !previousFavoriteState
+			};
+			
+			// Trigger reactivity
+			products = products;
+			applyFilters();
 
-			if (response.ok) {
-				await loadProducts();
+			// Make the API call in the background
+			try {
+				const response = await fetch('/api/products/favorite', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ username, productId })
+				});
+
+				if (!response.ok) {
+					// If the API call fails, revert the optimistic update
+					products[productIndex] = {
+						...products[productIndex],
+						isFavorite: previousFavoriteState
+					};
+					products = products;
+					applyFilters();
+					console.error('Failed to toggle favorite');
+				}
+			} catch (error) {
+				// If there's a network error, revert the optimistic update
+				products[productIndex] = {
+					...products[productIndex],
+					isFavorite: previousFavoriteState
+				};
+				products = products;
+				applyFilters();
+				console.error('Failed to toggle favorite:', error);
 			}
-		} catch (error) {
-			console.error('Failed to toggle favorite:', error);
 		}
 	}
 
