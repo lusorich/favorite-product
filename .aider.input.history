@@ -1,0 +1,45 @@
+
+# 2025-11-03 12:52:16.096142
++y
+
+# 2025-11-03 12:52:36.604768
++aider --model openrouter/anthropic/claude-4.5-sonnet
+
+# 2025-11-03 12:56:16.485117
++i want to create a project using sveltekit, tailwindCSS and maybe some sort of ui library. Initialize pls that project create starter files
+
+# 2025-11-03 12:56:40.275055
++y
+
+# 2025-11-03 12:56:54.330074
++start project in dev mode
+
+# 2025-11-03 12:58:22.785017
++can u create all files that u write above?
+
+# 2025-11-03 12:58:45.228794
++y
+
+# 2025-11-03 13:02:11.203297
++my start page needs to be a login/registration page, where users would write their login and password and after successfully authorize(or not) create pls that page and create json file with user login and password, check that login and password is in that json file, if not display error. Do it beatifully, use some design style that i can reuse in components after
+
+# 2025-11-03 13:02:57.173861
++y
+
+# 2025-11-03 13:06:47.112535
++after login i need to redirect user in main page. Idea of project it's to take photo of some product and save it's to remember what u buying, users can review products and set rating 1-10 to each product. That products can see only user that save that product. User can sort, can filter and search product, user can add product to favorites. Card of product is very simple is photo product, description, rating, product category, price and store where product can buy
+
+# 2025-11-03 13:08:33.142248
++y
+
+# 2025-11-03 13:18:14.855537
++i want to see details of each card, i want to click in card and see modal with all fields, end i want functional to edit each card fields. And add plz country field
+
+# 2025-11-03 13:20:27.478116
++y
+
+# 2025-11-03 13:22:06.390551
++i don't like that if i click to add product to favorite application is flicker and start loader, can u add something like optimistic update?
+
+# 2025-11-03 13:24:05.286155
++i want to only product name, photo be required fields, others don't need to be required

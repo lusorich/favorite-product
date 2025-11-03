@@ -1,1 +1,42 @@
-{}
+{
+  "demo": [
+    {
+      "id": "946d759e-af07-4206-8efa-601deeb4dafa",
+      "name": "234",
+      "description": "432",
+      "rating": 6,
+      "category": "Electronics",
+      "price": 0.06,
+      "store": "3",
+      "image": "/uploads/66b9801c-5306-40f2-b44a-61d50d1d6e32.jpg",
+      "isFavorite": false,
+      "createdAt": "2025-11-03T12:09:09.979Z",
+      "country": "Russia"
+    },
+    {
+      "id": "4159cd4a-8e32-4afe-98df-25b3d512aaa0",
+      "name": "Евгений",
+      "description": "jjk",
+      "rating": 5,
+      "category": "Beauty",
+      "price": 12,
+      "store": "Maxi",
+      "image": "/uploads/b7460eb7-bd54-4223-a8fc-cf9d95510bbd.jpg",
+      "isFavorite": false,
+      "createdAt": "2025-11-03T12:10:12.367Z"
+    },
+    {
+      "id": "019c396c-bb67-47fb-8820-b084b70b0459",
+      "name": "234324",
+      "description": "4324",
+      "rating": 5,
+      "category": "Other",
+      "price": 0.04,
+      "store": "43243",
+      "country": "Russia",
+      "image": "/uploads/599a5944-97d6-4b6e-807e-f82c5b57e724.png",
+      "isFavorite": false,
+      "createdAt": "2025-11-03T12:35:05.413Z"
+    }
+  ]
+}
