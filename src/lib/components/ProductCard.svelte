@@ -52,7 +52,9 @@
 		</div>
 
 		<!-- Description -->
-		<p class="text-sm text-gray-600 mb-3 line-clamp-2">{product.description}</p>
+		{#if product.description}
+			<p class="text-sm text-gray-600 mb-3 line-clamp-2">{product.description}</p>
+		{/if}
 
 		<!-- Rating -->
 		<div class="flex items-center mb-3">
@@ -71,15 +73,25 @@
 		</div>
 
 		<!-- Price and Store -->
-		<div class="flex items-center justify-between mb-3">
-			<span class="text-xl font-bold text-indigo-600">${product.price.toFixed(2)}</span>
-			<span class="text-sm text-gray-500">{product.store}</span>
-		</div>
+		{#if product.price > 0 || product.store}
+			<div class="flex items-center justify-between mb-3">
+				{#if product.price > 0}
+					<span class="text-xl font-bold text-indigo-600">${product.price.toFixed(2)}</span>
+				{:else}
+					<span></span>
+				{/if}
+				{#if product.store}
+					<span class="text-sm text-gray-500">{product.store}</span>
+				{/if}
+			</div>
+		{/if}
 
 		<!-- Country -->
-		<div class="mb-3">
-			<span class="text-xs text-gray-500">Country: {product.country}</span>
-		</div>
+		{#if product.country}
+			<div class="mb-3">
+				<span class="text-xs text-gray-500">Country: {product.country}</span>
+			</div>
+		{/if}
 
 		<!-- Delete Button -->
 		<button

@@ -36,14 +36,9 @@
 	async function handleSubmit() {
 		error = '';
 		
-		// Validation
-		if (!name || !description || !store || !country || !imageFile) {
-			error = 'Please fill in all fields and upload an image';
-			return;
-		}
-
-		if (price <= 0) {
-			error = 'Price must be greater than 0';
+		// Validation - only name and image are required
+		if (!name || !imageFile) {
+			error = 'Please enter product name and upload an image';
 			return;
 		}
 
@@ -91,7 +86,7 @@
 		<form on:submit|preventDefault={handleSubmit} class="p-6 space-y-4">
 			<!-- Image Upload -->
 			<div class="form-group">
-				<label for="image" class="form-label">Product Image</label>
+				<label for="image" class="form-label">Product Image <span class="text-red-500">*</span></label>
 				<input
 					id="image"
 					type="file"
@@ -99,6 +94,7 @@
 					on:change={handleImageChange}
 					class="form-input"
 					disabled={isLoading}
+					required
 				/>
 				{#if imagePreview}
 					<img src={imagePreview} alt="Preview" class="mt-2 w-full h-48 object-cover rounded-lg" />
@@ -107,7 +103,7 @@
 
 			<!-- Name -->
 			<div class="form-group">
-				<label for="name" class="form-label">Product Name</label>
+				<label for="name" class="form-label">Product Name <span class="text-red-500">*</span></label>
 				<input
 					id="name"
 					type="text"
@@ -115,6 +111,7 @@
 					placeholder="Enter product name"
 					class="form-input"
 					disabled={isLoading}
+					required
 				/>
 			</div>
 
@@ -124,7 +121,7 @@
 				<textarea
 					id="description"
 					bind:value={description}
-					placeholder="Enter product description"
+					placeholder="Enter product description (optional)"
 					rows="3"
 					class="form-input"
 					disabled={isLoading}
@@ -178,7 +175,7 @@
 						id="store"
 						type="text"
 						bind:value={store}
-						placeholder="Enter store name"
+						placeholder="Enter store name (optional)"
 						class="form-input"
 						disabled={isLoading}
 					/>
@@ -190,7 +187,7 @@
 						id="country"
 						type="text"
 						bind:value={country}
-						placeholder="Enter country"
+						placeholder="Enter country (optional)"
 						class="form-input"
 						disabled={isLoading}
 					/>

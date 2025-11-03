@@ -55,14 +55,9 @@
 	async function handleSave() {
 		error = '';
 
-		// Validation
-		if (!editedProduct.name || !editedProduct.description || !editedProduct.store || !editedProduct.country) {
-			error = 'Please fill in all fields';
-			return;
-		}
-
-		if (editedProduct.price <= 0) {
-			error = 'Price must be greater than 0';
+		// Validation - only name is required
+		if (!editedProduct.name) {
+			error = 'Please enter product name';
 			return;
 		}
 
@@ -154,7 +149,7 @@
 
 					<!-- Name -->
 					<div class="form-group">
-						<label for="name" class="form-label">Product Name</label>
+						<label for="name" class="form-label">Product Name <span class="text-red-500">*</span></label>
 						<input
 							id="name"
 							type="text"
@@ -162,6 +157,7 @@
 							placeholder="Enter product name"
 							class="form-input"
 							disabled={isLoading}
+							required
 						/>
 					</div>
 
@@ -171,7 +167,7 @@
 						<textarea
 							id="description"
 							bind:value={editedProduct.description}
-							placeholder="Enter product description"
+							placeholder="Enter product description (optional)"
 							rows="4"
 							class="form-input"
 							disabled={isLoading}
@@ -225,7 +221,7 @@
 								id="store"
 								type="text"
 								bind:value={editedProduct.store}
-								placeholder="Enter store name"
+								placeholder="Enter store name (optional)"
 								class="form-input"
 								disabled={isLoading}
 							/>
@@ -237,7 +233,7 @@
 								id="country"
 								type="text"
 								bind:value={editedProduct.country}
-								placeholder="Enter country"
+								placeholder="Enter country (optional)"
 								class="form-input"
 								disabled={isLoading}
 							/>
@@ -308,10 +304,12 @@
 						</div>
 
 						<!-- Description -->
-						<div>
-							<h4 class="text-sm font-semibold text-gray-700 mb-1">Description</h4>
-							<p class="text-gray-600">{product.description}</p>
-						</div>
+						{#if product.description}
+							<div>
+								<h4 class="text-sm font-semibold text-gray-700 mb-1">Description</h4>
+								<p class="text-gray-600">{product.description}</p>
+							</div>
+						{/if}
 
 						<!-- Rating -->
 						<div>
@@ -333,22 +331,28 @@
 						</div>
 
 						<!-- Price -->
-						<div>
-							<h4 class="text-sm font-semibold text-gray-700 mb-1">Price</h4>
-							<p class="text-3xl font-bold text-indigo-600">${product.price.toFixed(2)}</p>
-						</div>
+						{#if product.price > 0}
+							<div>
+								<h4 class="text-sm font-semibold text-gray-700 mb-1">Price</h4>
+								<p class="text-3xl font-bold text-indigo-600">${product.price.toFixed(2)}</p>
+							</div>
+						{/if}
 
 						<!-- Store -->
-						<div>
-							<h4 class="text-sm font-semibold text-gray-700 mb-1">Store</h4>
-							<p class="text-gray-600">{product.store}</p>
-						</div>
+						{#if product.store}
+							<div>
+								<h4 class="text-sm font-semibold text-gray-700 mb-1">Store</h4>
+								<p class="text-gray-600">{product.store}</p>
+							</div>
+						{/if}
 
 						<!-- Country -->
-						<div>
-							<h4 class="text-sm font-semibold text-gray-700 mb-1">Country</h4>
-							<p class="text-gray-600">{product.country}</p>
-						</div>
+						{#if product.country}
+							<div>
+								<h4 class="text-sm font-semibold text-gray-700 mb-1">Country</h4>
+								<p class="text-gray-600">{product.country}</p>
+							</div>
+						{/if}
 
 						<!-- Created Date -->
 						<div>

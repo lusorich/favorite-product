@@ -71,16 +71,17 @@ export const POST: RequestHandler = async ({ request }) => {
 		const formData = await request.formData();
 		const username = formData.get('username') as string;
 		const name = formData.get('name') as string;
-		const description = formData.get('description') as string;
-		const rating = parseInt(formData.get('rating') as string);
-		const category = formData.get('category') as string;
-		const price = parseFloat(formData.get('price') as string);
-		const store = formData.get('store') as string;
-		const country = formData.get('country') as string;
+		const description = formData.get('description') as string || '';
+		const rating = parseInt(formData.get('rating') as string) || 5;
+		const category = formData.get('category') as string || 'Other';
+		const price = parseFloat(formData.get('price') as string) || 0;
+		const store = formData.get('store') as string || '';
+		const country = formData.get('country') as string || '';
 		const imageFile = formData.get('image') as File;
 
-		if (!username || !name || !description || !store || !country || !imageFile) {
-			return json({ error: 'Missing required fields' }, { status: 400 });
+		// Only name and image are required
+		if (!username || !name || !imageFile) {
+			return json({ error: 'Username, product name, and image are required' }, { status: 400 });
 		}
 
 		// Save image
