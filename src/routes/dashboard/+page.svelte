@@ -3,6 +3,7 @@
 	import { goto } from '$app/navigation';
 	import ProductCard from '$lib/components/ProductCard.svelte';
 	import AddProductModal from '$lib/components/AddProductModal.svelte';
+	import ProductDetailsModal from '$lib/components/ProductDetailsModal.svelte';
 	
 	interface Product {
 		id: string;
@@ -12,6 +13,7 @@
 		category: string;
 		price: number;
 		store: string;
+		country: string;
 		image: string;
 		isFavorite: boolean;
 		createdAt: string;
@@ -21,6 +23,8 @@
 	let products: Product[] = [];
 	let filteredProducts: Product[] = [];
 	let showAddModal = false;
+	let showDetailsModal = false;
+	let selectedProduct: Product | null = null;
 	let searchQuery = '';
 	let selectedCategory = 'all';
 	let sortBy = 'newest';
@@ -64,7 +68,8 @@
 			result = result.filter(p => 
 				p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
 				p.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-				p.store.toLowerCase().includes(searchQuery.toLowerCase())
+				p.store.toLowerCase().includes(searchQuery.toLowerCase()) ||
+				p.country.toLowerCase().includes(searchQuery.toLowerCase())
 			);
 		}
 
@@ -113,6 +118,17 @@
 
 	function handleProductAdded() {
 		showAddModal = false;
+		loadProducts();
+	}
+
+	function handleViewDetails(product: Product) {
+		selectedProduct = product;
+		showDetailsModal = true;
+	}
+
+	function handleProductUpdated(event: CustomEvent) {
+		showDetailsModal = false;
+		selectedProduct = null;
 		loadProducts();
 	}
 
@@ -272,6 +288,7 @@
 				{#each filteredProducts as product (product.id)}
 					<ProductCard
 						{product}
+						on:viewDetails={() => handleViewDetails(product)}
 						on:toggleFavorite={() => handleToggleFavorite(product.id)}
 						on:delete={() => handleDeleteProduct(product.id)}
 					/>
@@ -287,5 +304,18 @@
 		{username}
 		on:close={() => showAddModal = false}
 		on:productAdded={handleProductAdded}
+	/>
+{/if}
+
+<!-- Product Details Modal -->
+{#if showDetailsModal && selectedProduct}
+	<ProductDetailsModal
+		product={selectedProduct}
+		{username}
+		on:close={() => {
+			showDetailsModal = false;
+			selectedProduct = null;
+		}}
+		on:productUpdated={handleProductUpdated}
 	/>
 {/if}

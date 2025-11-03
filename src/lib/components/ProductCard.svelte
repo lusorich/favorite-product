@@ -9,6 +9,7 @@
 		category: string;
 		price: number;
 		store: string;
+		country: string;
 		image: string;
 		isFavorite: boolean;
 	};
@@ -16,7 +17,7 @@
 	const dispatch = createEventDispatcher();
 </script>
 
-<div class="card hover:shadow-lg transition-shadow duration-200">
+<div class="card hover:shadow-lg transition-shadow duration-200 cursor-pointer" on:click={() => dispatch('viewDetails')}>
 	<!-- Image -->
 	<div class="relative">
 		<img
@@ -26,7 +27,7 @@
 		/>
 		<!-- Favorite Button -->
 		<button
-			on:click={() => dispatch('toggleFavorite')}
+			on:click|stopPropagation={() => dispatch('toggleFavorite')}
 			class="absolute top-2 right-2 p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors"
 		>
 			<svg
@@ -75,9 +76,14 @@
 			<span class="text-sm text-gray-500">{product.store}</span>
 		</div>
 
+		<!-- Country -->
+		<div class="mb-3">
+			<span class="text-xs text-gray-500">Country: {product.country}</span>
+		</div>
+
 		<!-- Delete Button -->
 		<button
-			on:click={() => dispatch('delete')}
+			on:click|stopPropagation={() => dispatch('delete')}
 			class="w-full btn btn-outline text-red-600 border-red-600 hover:bg-red-50"
 		>
 			<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

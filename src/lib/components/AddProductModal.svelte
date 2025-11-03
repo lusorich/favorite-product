@@ -11,6 +11,7 @@
 	let category = 'Other';
 	let price = 0;
 	let store = '';
+	let country = '';
 	let imageFile: File | null = null;
 	let imagePreview = '';
 	let error = '';
@@ -36,7 +37,7 @@
 		error = '';
 		
 		// Validation
-		if (!name || !description || !store || !imageFile) {
+		if (!name || !description || !store || !country || !imageFile) {
 			error = 'Please fill in all fields and upload an image';
 			return;
 		}
@@ -57,6 +58,7 @@
 			formData.append('category', category);
 			formData.append('price', price.toString());
 			formData.append('store', store);
+			formData.append('country', country);
 			formData.append('image', imageFile);
 
 			const response = await fetch('/api/products', {
@@ -154,8 +156,8 @@
 				</div>
 			</div>
 
-			<!-- Price and Store -->
-			<div class="grid grid-cols-2 gap-4">
+			<!-- Price, Store, and Country -->
+			<div class="grid grid-cols-3 gap-4">
 				<div class="form-group">
 					<label for="price" class="form-label">Price ($)</label>
 					<input
@@ -177,6 +179,18 @@
 						type="text"
 						bind:value={store}
 						placeholder="Enter store name"
+						class="form-input"
+						disabled={isLoading}
+					/>
+				</div>
+
+				<div class="form-group">
+					<label for="country" class="form-label">Country</label>
+					<input
+						id="country"
+						type="text"
+						bind:value={country}
+						placeholder="Enter country"
 						class="form-input"
 						disabled={isLoading}
 					/>

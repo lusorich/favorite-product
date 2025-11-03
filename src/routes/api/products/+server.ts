@@ -12,6 +12,7 @@ interface Product {
 	category: string;
 	price: number;
 	store: string;
+	country: string;
 	image: string;
 	isFavorite: boolean;
 	createdAt: string;
@@ -75,9 +76,10 @@ export const POST: RequestHandler = async ({ request }) => {
 		const category = formData.get('category') as string;
 		const price = parseFloat(formData.get('price') as string);
 		const store = formData.get('store') as string;
+		const country = formData.get('country') as string;
 		const imageFile = formData.get('image') as File;
 
-		if (!username || !name || !description || !store || !imageFile) {
+		if (!username || !name || !description || !store || !country || !imageFile) {
 			return json({ error: 'Missing required fields' }, { status: 400 });
 		}
 
@@ -98,6 +100,7 @@ export const POST: RequestHandler = async ({ request }) => {
 			category,
 			price,
 			store,
+			country,
 			image: `/uploads/${imageName}`,
 			isFavorite: false,
 			createdAt: new Date().toISOString()
