@@ -1,1 +1,2 @@
-# favorite-product
+npm install
+npm run dev
